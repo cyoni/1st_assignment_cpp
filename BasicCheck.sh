@@ -34,14 +34,14 @@ echo "             $first                $sec                 $third"
 
 }
 
-dir=$1
+dir="$1/"
+FullName=$2
 
-FullName="$2"
 getName=(${FullName//./ })
 file_name=${getName[0]}
+makeFileName="Makefile"
 
-
-if [ -z "$1" ] || [ -z "$2" ] || [ ! -e "$1Makefile" ] 
+if [ -z "$dir" ] || [ -z "$FullName" ] ||  [ ! -e "$dir$makeFileName" ] 
 then
 echo There is no MakeFile or first/sec argument is empty! This may help:
 echo '1. ./BasicCheck.sh'
@@ -50,10 +50,10 @@ echo '3. name of the program.[cpp or whatever]'
 echo '4. arguments if the program uses'
 
 
-elif [ -e $dir$2 ]
+elif [ -e $dir$file_name ]
 then
 
-if [ -r $dir$2 ] 
+if [ -r $dir$file_name ] 
 then
 ## file found
 cd $dir
