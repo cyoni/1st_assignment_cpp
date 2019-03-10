@@ -57,7 +57,7 @@ x=0
 ##shift 2
 ##programArgs=$@
 
-valgrind --leak-check=full --error-exitcode=1 $dir$file_name &>report_leak
+valgrind --leak-check=full --error-exitcode=2 $dir$file_name &>report_leak
 
 res=$?
 if [ $res -eq 0 ]
