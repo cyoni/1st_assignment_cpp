@@ -71,5 +71,5 @@ fi
 
 
 print $x $y $z
-echo $output
+exit $output
 
