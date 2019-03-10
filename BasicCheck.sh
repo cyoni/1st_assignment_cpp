@@ -65,6 +65,17 @@ if [ $res -eq 0 ]
 then
 y=0
 fi
+
+
+valgrind --tool=helgrind --error-exitcode=1 $dir$file_name $programArgs &>report_thread
+
+
+if [ $? -eq 0 ]
+then
+z=0
+fi
+
+
 fi
 
 output=7
@@ -91,26 +102,7 @@ then
 output=3
 fi
 
-if [ $x -eq 1 ] && [ $y -eq 0 ] && [ $z -eq 0 ]
-then
-output=4
-fi
-
-if [ $x -eq 1 ] && [ $y -eq 0 ] && [ $z -eq 1 ]
-then
-output=5
-fi
-
-if [ $x -eq 1 ] && [ $y -eq 1 ] && [ $z -eq 0 ]
-then
-output=6
-fi
-
-if [ $x -eq 1 ] && [ $y -eq 1 ] && [ $z -eq 1 ]
-then
-output=7
-fi
-
+echo $output
 print $x $y $z
 exit $output
 
