@@ -65,12 +65,51 @@ if [ $res -eq 0 ]
 then
 y=0
 fi
-
-
 fi
 
-if [ $x -eq 0 ] && [ $y -eq 0 ] && [ $z -eq 0 ] then output=5 fi
-if [ $x -eq 1 ] && [ $y -eq 1 ] && [ $z -eq 1 ] then output=5 fi
+output=7
+
+
+if [ $x -eq 0 ] && [ $y -eq 0 ] && [ $z -eq 0 ]
+then
+ output=0 
+fi
+
+
+if [ $x -eq 0 ] && [ $y -eq 0 ] && [ $z -eq 1 ]
+then
+output=1 
+fi
+
+if [ $x -eq 0 ] && [ $y -eq 1 ] && [ $z -eq 0 ]
+then
+output=2
+fi
+
+if [ $x -eq 0 ] && [ $y -eq 1 ] && [ $z -eq 1 ]
+then
+output=3
+fi
+
+if [ $x -eq 1 ] && [ $y -eq 0 ] && [ $z -eq 0 ]
+then
+output=4
+fi
+
+if [ $x -eq 1 ] && [ $y -eq 0 ] && [ $z -eq 1 ]
+then
+output=5
+fi
+
+if [ $x -eq 1 ] && [ $y -eq 1 ] && [ $z -eq 0 ]
+then
+output=6
+fi
+
+if [ $x -eq 1 ] && [ $y -eq 1 ] && [ $z -eq 1 ]
+then
+output=7
+fi
 
 print $x $y $z
 exit $output
