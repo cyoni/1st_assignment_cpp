@@ -95,8 +95,8 @@ echo Something went wrong. Check file report for more info
 fi
 
 ##########
-else 
-echo cannot read file.
+else  
+echo cannot read file. $dir$file_name
 fi
 
 else 
