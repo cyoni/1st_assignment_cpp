@@ -55,11 +55,11 @@ then
 x=0
 
 
-##shift 2
-##programArgs=$@
+shift 2
+programArgs=$@
 
 ##valgrind --leak-check=full --error-exitcode=2 $dir$file_name &>report_leak
-valgrind --leak-check=full --error-exitcode=2 ./$file_name  > valgrind.txt  2>&1
+valgrind --leak-check=full --error-exitcode=2 ./$file_name $programArgs &>report_memory
 
 res=$?
 if [ $res -eq 0 ]
@@ -68,7 +68,7 @@ y=0
 fi
 
 
-valgrind --tool=helgrind --error-exitcode=1 $dir$file_name $programArgs &>report_thread
+valgrind --tool=helgrind --error-exitcode=1 ./$file_name $programArgs &>report_thread
 
 
 if [ $? -eq 0 ]
