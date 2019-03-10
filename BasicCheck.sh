@@ -27,7 +27,7 @@ then
 third=$p
 fi
 
-output="2"
+
 
 echo  '         Compilation         Memory Leaks         Thread Race' 
 echo "             $first                $sec                 $third"
@@ -69,6 +69,8 @@ fi
 
 fi
 
+if [ $x -eq 0 ] && [ $y -eq 0 ] && [ $z -eq 0 ] then output=5 fi
+if [ $x -eq 1 ] && [ $y -eq 1 ] && [ $z -eq 1 ] then output=5 fi
 
 print $x $y $z
 exit $output
