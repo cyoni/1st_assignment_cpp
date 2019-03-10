@@ -36,18 +36,24 @@ echo "             $first                $sec                 $third"
 }
 
 dir="$1/"
-FullName="$2"
+file_name="$2"
 
-getName=(${FullName//./ })
-file_name=${getName[0]}
+
 
 make_file="/Makefile"
 if [ ! -f $dir$make_file ]; then
 echo "makefile is missing"
 fi
 
+if [ ! -f $dir$file_name ]
+then
+echo couldnot find file!
+else
+
+
 cd $dir
-make > "/dev/null"
+
+make
 
 if [ $? -eq 0 ]
 then
@@ -58,7 +64,7 @@ x=0
 shift 2
 programArgs=$@
 
-##valgrind --leak-check=full --error-exitcode=2 $dir$file_name &>report_leak
+
 valgrind --leak-check=full --error-exitcode=2 ./$file_name $programArgs &>report_memory
 
 res=$?
@@ -76,6 +82,8 @@ then
 z=0
 fi
 
+
+fi
 
 fi
 
@@ -103,7 +111,6 @@ then
 output=3
 fi
 
-echo $output
 print $x $y $z
 exit $output
 
