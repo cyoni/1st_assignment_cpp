@@ -46,7 +46,7 @@ echo "makefile is missing"
 fi
 
 cd $dir
-make 
+make > "/dev/null"
 
 if [ $? -eq 0 ]
 then
