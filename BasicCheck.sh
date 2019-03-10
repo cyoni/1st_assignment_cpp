@@ -33,40 +33,84 @@ echo "             $first                $sec                 $third"
 
 
 }
+output="0"
 
 dir="$1/"
-FullName="$2"
+FullName=$2
 
 getName=(${FullName//./ })
 file_name=${getName[0]}
+makeFileName="Makefile"
 
-make_file="/Makefile"
-if [ ! -f $dir$make_file ]; then
-echo "makefile is missing"
-fi
+if [ -z "$dir" ] || [ -z "$FullName" ] ||  [ ! -e "$dir$makeFileName" ] 
+then
+echo There is no MakeFile or first/sec argument is empty! This may help:
+echo '1. ./BasicCheck.sh'
+echo '2. path starting&ending with /'
+echo '3. name of the program.[cpp or whatever]'
+echo '4. arguments if the program uses'
 
+
+elif [ -e $dir$file_name ]
+then
+
+if [ -r $dir$file_name ] 
+then
+## file found
 cd $dir
-make > "/dev/null"
+
+ ## compile
+ make &>compiler_report
+
 
 if [ $? -eq 0 ]
 then
-
+rm compiler_report ## delete file if there is no error
 x=0
+## now to check for memory leak and then thread race
+
+shift 2
+programArgs=$@
+
+valgrind --leak-check=full --error-exitcode=1 $dir$file_name $programArgs &>report_leak
 
 
-##shift 2
-##programArgs=$@
-
-valgrind --leak-check=full --error-exitcode=2 $dir$file_name &>report_leak
-
-res=$?
-if [ $res -eq 0 ]
+if [ $? -eq 0 ]
 then
 y=0
+else
+output="2"
 fi
 
 
+## check for thread race:
+valgrind --tool=helgrind --error-exitcode=1 $dir$file_name $programArgs &>report_thread
+
+
+if [ $? -eq 0 ]
+then
+z=0
 fi
+
+
+else
+echo Something went wrong. Check file report for more info
+fi
+
+##########
+else  
+echo cannot read file. $dir$file_name
+fi
+
+else 
+echo cannot find file $dir$file_name
+
+fi
+
+
+## print solution
 
 print $x $y $z
+
+echo $output
 
