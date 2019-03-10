@@ -34,8 +34,8 @@ echo "             $first                $sec                 $third"
 
 }
 
-dir=$1
-FullName="/$2"
+dir="$1/"
+FullName="$2"
 
 getName=(${FullName//./ })
 file_name=${getName[0]}
@@ -45,6 +45,7 @@ if [ ! -f $dir$make_file ]; then
 echo "makefile is missing"
 fi
 
+cd $dir
 make 
 
 if [ $? -eq 0 ]
