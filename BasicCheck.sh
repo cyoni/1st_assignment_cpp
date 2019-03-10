@@ -59,8 +59,8 @@ programArgs=$@
 
 valgrind --leak-check=full --error-exitcode=1 $dir$file_name $programArgs &>report_leak
 
-
-if [ $? -eq 0 ]
+res=$?
+if [ $res -eq 0 ]
 then
 y=0
 fi
